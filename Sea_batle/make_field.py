@@ -1,5 +1,5 @@
 class Field:
-    def __init__(self,a):
+    def __init__(self, a):
         self.a = a
         self.s = self.a * self.a // 3
         self.mas=["*"] * self.a

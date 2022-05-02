@@ -34,10 +34,10 @@ class player:
 
 
                 message_to_return = f'Ведите расположение {s} однопалубных кораблей"/n'
-                
+                print(message_to_return)
                 self.ship = input()
                 self.ship_l = int(self.ship[1::]) - 1
-                self.ship_f = player(self.q).get_ship_f(self.ship[0])
+                self.ship_f = self.get_ship_f(self.ship[0])
                 for i in range(self.a):
                     for j in range(self.a):
                         if i == int(self.ship_f) and j == int(self.ship_l):
@@ -56,9 +56,10 @@ class player:
                 print(*self.mas_b_1[i], end="  ")
                 print("", sep="  ")
 
-    def __init__(self, q):
-        self.mas = Field(q).mas
-        self.q = q
-        self.a = Field(q).a
-        self.list = Field(q).list
-        self.mas_b_1 = Field(q).mas_b_1
+    def __init__(self, field):
+        self.field = field
+        self.mas = self.field.mas
+        self.q = self.field.a
+        self.a = self.field.a
+        self.list = self.field.list
+        self.mas_b_1 = self.field.mas_b_1

@@ -7,21 +7,29 @@ import random
 class My_game:
     def __init__(self, q):
         self.q = q
-        self.mas = player(self.q).mas
-        self.mas_b = bot(self.q).mas_b
-        self.a = Field(self.q).a
-        self.list = Field(self.q).list
-        self.mas_b_1 = player(self.q).mas_b_1
-        self.ship_b = bot(self.q).ship_b_l
-        self.ship_b_l = bot(self.q).ship_b_l
-        self.ship_b_f = bot(self.q).ship_b_f
+
+        self.field_player = Field(self.q)
+        self.field_bot = Field(self.q)
+
+        self.player = player(self.field_player)
+        self.bot = bot(self.field_bot, self.player)
+
+        self.mas = self.player.mas
+        self.mas_b = self.bot.mas_b
+
+        self.a = self.field_player.a
+        self.list = self.field_player.list
+        self.mas_b_1 = self.player.mas_b_1
+        self.ship_b = self.bot.ship_b_l
+        self.ship_b_l = self.bot.ship_b_l
+        self.ship_b_f = self.bot.ship_b_f
 
     def attack_player(self):
         player_shot = True
         while player_shot == True:
             ship = input("Ведите место атаки| ")
             ship_l = int(ship[1::]) - 1
-            ship_f = player(self.q).get_ship_f(ship[0])
+            ship_f = self.player.get_ship_f(ship[0])
             for i in range(self.a):
                 for j in range(self.a):
                     if i == int(ship_f) and j == int(ship_l):
@@ -48,7 +56,7 @@ class My_game:
         while bot_shot == True:
             ship_b = random.choice(self.list)
             ship_b_l = random.randrange(0, self.a)
-            ship_b_f = player(self.q).get_ship_f(ship_b[0])
+            ship_b_f = self.player.get_ship_f(ship_b[0])
 
             # проверка, свободно ли поле:
             for i in range(self.a):
@@ -94,16 +102,15 @@ class My_game:
             print("Ты проиграл!")
 
     def game(self):
-        p = player(self.q)
+        p = self.player
         self.mas = p.mas
         p.Xod_player()
-        b = bot(self.q)
+        b = self.bot
         b.Xod_bot()
         bot_win = False
         i_win = False
         while bot_win == False and i_win == False:
-            g = My_game(self.q)
-            g.attack_player()
-            g.attack_bot()
-            g.good_field()
-            g.hwo_win()
+            self.attack_player()
+            self.attack_bot()
+            self.good_field()
+            self.hwo_win()

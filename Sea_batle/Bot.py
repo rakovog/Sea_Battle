@@ -1,15 +1,18 @@
 from Sea_batle.make_field import Field
 from Sea_batle.Player import player
 import random
+
 class bot:
-    def __init__(self,q):
-        self.q=q
-        self.mas_b=Field(self.q).mas_b
-        self.a=Field(self.q).a
-        self.list=Field(self.q).list
+    def __init__(self, field, player):
+        self.field = field
+        self.q = self.field.a
+        self.mas_b = self.field.mas_b
+        self.a = self.field.a
+        self.list = self.field.list
         self.ship_b = random.choice(self.list)
         self.ship_b_l = random.randrange(0, self.a)
-        self.ship_b_f = player(self.q).get_ship_f(self.ship_b[0])
+        self.ship_b_f = player.get_ship_f(self.ship_b[0])
+
     def Xod_bot(self):
 
         bot_set = True
