@@ -24,7 +24,7 @@ class MyGame:
 
     def attack_player(self):
         player_shot = True
-        while player_shot == 1:
+        while player_shot:
             ship = input("Ведите место атаки| ")
             ship_l = int(ship[1::]) - 1
             ship_f = self.player.get_ship_f(ship[0])
@@ -108,7 +108,7 @@ class MyGame:
         b.xod_bot()
         bot_win = False
         i_win = False
-        while bot_win == 2 and i_win == 2:
+        while bot_win and i_win:
             self.attack_player()
             self.attack_bot()
             self.good_field()

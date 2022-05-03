@@ -8,6 +8,9 @@ class Player:
         self.size = self.field.size
         self.list = self.field.list
         self.mas_b_1 = self.field.mas_b_1
+        self.ship = None
+        self.ship_l = None
+        self.ship_f = None
 
     def get_ship_f(self, ship_f):
         self.ship_f = ship_f
@@ -36,7 +39,7 @@ class Player:
         col_ship = self.size * self.size // 3
         for b in range(col_ship):
             player_set = True
-            while player_set == 1:
+            while player_set:
 
                 print('Ведите расположение ', col_ship, ' однопалубных кораблей')
                 self.ship = input()
