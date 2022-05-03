@@ -23,11 +23,11 @@ class MyGame:
         player_shot = True
         while player_shot:
             ship = input("Ведите место атаки| ")
-            ship_l = int(ship[1::]) - 1
-            ship_f = self.player.get_ship_f(ship[0])
+            ship_x = int(ship[1::]) - 1
+            ship_y = self.player.get_ship_f(ship[0])
             for i in range(self.size):
                 for j in range(self.size):
-                    if i == int(ship_f) and j == int(ship_l):
+                    if i == int(ship_y) and j == int(ship_x):
                         if self.mas_b_1[i][j] == "*":
                             player_shot = False
                         else:
@@ -36,7 +36,7 @@ class MyGame:
         # Проверка игрока
         for i in range(self.size):
             for j in range(self.size):
-                if i == int(ship_f) and j == int(ship_l):
+                if i == int(ship_y) and j == int(ship_x):
                     if self.mas_b[i][j] == "X" or self.mas_b[i][j] == "+":
                         self.mas_b_1[i][j] = "+"
                         self.mas_b[i][j] = "+"
@@ -49,19 +49,19 @@ class MyGame:
         #   Бот атакует
         bot_shot = True
         while bot_shot == 1:
-            ship_b = random.choice(self.list)
-            ship_b_l = random.randrange(0, self.size)
-            ship_b_f = self.player.get_ship_f(ship_b[0])
+            ship = random.choice(self.list)
+            ship_x = random.randrange(0, self.size)
+            ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
             for i in range(self.size):
                 for j in range(self.size):
-                    if i == int(ship_b_f) and j == int(ship_b_l):
+                    if i == int(ship_y) and j == int(ship_x):
                         if self.mas[i][j] == "*" or self.mas[i][j] == "X":
                             bot_shot = False
         for i in range(self.size):
             for j in range(self.size):
-                if i == int(ship_b_f) and j == int(ship_b_l):
+                if i == int(ship_y) and j == int(ship_x):
                     if self.mas[i][j] == "X":
                         self.mas[i][j] = "+"
                     else:
