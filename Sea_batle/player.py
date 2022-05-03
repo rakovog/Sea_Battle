@@ -1,7 +1,13 @@
 from make_field import Field
 
 
-class player:
+class Player:
+    def __init__(self, field):
+        self.field = field
+        self.mas = self.field.mas
+        self.size = self.field.size
+        self.list = self.field.list
+        self.mas_b_1 = self.field.mas_b_1
 
     def get_ship_f(self, ship_f):
         self.ship_f = ship_f
@@ -26,40 +32,30 @@ class player:
         elif self.ship_f == "k":
             return 9
 
-    def Xod_player(self):
-        s = self.a * self.a // 3
-        for b in range(s):
+    def xod_player(self):
+        col_ship = self.size * self.size // 3
+        for b in range(col_ship):
             player_set = True
-            while player_set == True:
+            while player_set == 1:
 
-
-                message_to_return = f'Ведите расположение {s} однопалубных кораблей"/n'
-                print(message_to_return)
+                print('Ведите расположение ', col_ship, ' однопалубных кораблей')
                 self.ship = input()
                 self.ship_l = int(self.ship[1::]) - 1
                 self.ship_f = self.get_ship_f(self.ship[0])
-                for i in range(self.a):
-                    for j in range(self.a):
+                for i in range(self.size):
+                    for j in range(self.size):
                         if i == int(self.ship_f) and j == int(self.ship_l):
                             if self.mas[i][j] == "*":
                                 player_set = False
-                                s -= 1
+                                col_ship -= 1
                             else:
                                 print("Поле занято, повторите ввод")
-            for i in range(self.a):
-                for j in range(self.a):
+            for i in range(self.size):
+                for j in range(self.size):
                     if i == int(self.ship_f) and j == int(self.ship_l):
                         self.mas[i][j] = "X"
             print(sep="  ")
-            for i in range(self.a):
+            for i in range(self.size):
                 print(self.list[i], "| ", *self.mas[i], end=" | ")
                 print(*self.mas_b_1[i], end="  ")
                 print("", sep="  ")
-
-    def __init__(self, field):
-        self.field = field
-        self.mas = self.field.mas
-        self.q = self.field.a
-        self.a = self.field.a
-        self.list = self.field.list
-        self.mas_b_1 = self.field.mas_b_1
