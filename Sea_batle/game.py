@@ -18,9 +18,6 @@ class MyGame:
 
         self.list = self.field_player.list
         self.mas_b_1 = self.player.mas_b_1
-        self.ship_b = self.bot.ship_b_l
-        self.ship_b_l = self.bot.ship_b_l
-        self.ship_b_f = self.bot.ship_b_f
 
     def attack_player(self):
         player_shot = True
@@ -90,14 +87,20 @@ class MyGame:
                 if self.mas[i][j] == "X":
                     i_win = False
 
-        if bot_win == 1 and i_win == 1:
+        if bot_win and i_win:
             print("Ничья")
+            return False
 
-        elif bot_win == 1:
+        elif bot_win:
             print("Ты победил!")
+            return False
 
-        elif i_win == 1:
+        elif i_win:
             print("Ты проиграл!")
+            return False
+
+        else:
+            return True
 
     def game(self):
         p = self.player
@@ -106,10 +109,7 @@ class MyGame:
         b = self.bot
         self.mas_b = b.mas_b
         b.xod_bot()
-        bot_win = False
-        i_win = False
-        while bot_win and i_win:
+        while self.hwo_win():
             self.attack_player()
             self.attack_bot()
             self.good_field()
-            self.hwo_win()
