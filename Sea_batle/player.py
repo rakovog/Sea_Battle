@@ -8,9 +8,6 @@ class Player:
         self.size = self.field.size
         self.list = self.field.list
         self.mas_b_1 = self.field.mas_b_1
-        self.ship = None
-        self.ship_l = None
-        self.ship_f = None
 
     def get_ship_f(self, ship_f):
         self.ship_f = ship_f
@@ -38,25 +35,21 @@ class Player:
     def xod_player(self):
         col_ship = self.size * self.size // 3
         for b in range(col_ship):
-            player_set = True
-            while player_set:
+            print('Ведите расположение ', col_ship, ' однопалубных кораблей')
+            ship = input()
+            ship_x = int(ship[1::]) - 1
+            ship_y = self.get_ship_f(ship[0])
+            while True:
 
-                print('Ведите расположение ', col_ship, ' однопалубных кораблей')
-                self.ship = input()
-                self.ship_l = int(self.ship[1::]) - 1
-                self.ship_f = self.get_ship_f(self.ship[0])
-                for i in range(self.size):
-                    for j in range(self.size):
-                        if i == int(self.ship_f) and j == int(self.ship_l):
-                            if self.mas[i][j] == "*":
-                                player_set = False
-                                col_ship -= 1
-                            else:
-                                print("Поле занято, повторите ввод")
-            for i in range(self.size):
-                for j in range(self.size):
-                    if i == int(self.ship_f) and j == int(self.ship_l):
-                        self.mas[i][j] = "X"
+                if self.mas[ship_x][ship_y] != "*":
+                    print('Ведите расположение ', col_ship, ' однопалубных кораблей')
+                    ship = input()
+                    ship_x = int(ship[1::]) - 1
+                    ship_y = self.get_ship_f(ship[0])
+                else:
+                    break
+            self.mas[ship_y][ship_x] = "X"
+            col_ship -= 1
             print(sep="  ")
             for i in range(self.size):
                 print(self.list[i], "| ", *self.mas[i], end=" | ")
