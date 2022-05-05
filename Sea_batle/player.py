@@ -42,6 +42,7 @@ class Player:
             while True:
 
                 if self.mas[ship_x][ship_y] != "*":
+                    print("Поле занято, повторите ввод:")
                     print('Ведите расположение ', col_ship, ' однопалубных кораблей')
                     ship = input()
                     ship_x = int(ship[1::]) - 1

@@ -23,27 +23,20 @@ class MyGame:
         player_shot = True
         while player_shot:
             ship = input("Ведите место атаки| ")
-            ship_x = int(ship[1::]) - 1
-            ship_y = self.player.get_ship_f(ship[0])
-            for i in range(self.size):
-                for j in range(self.size):
-                    if i == int(ship_y) and j == int(ship_x):
-                        if self.mas_b_1[i][j] == "*":
-                            player_shot = False
-                        else:
-                            print("Вы уже стреляли в это место, хотите повторить? :-) ")
+            ship_y = int(ship[1::]) - 1
+            ship_x = self.player.get_ship_f(ship[0])
+            if self.mas_b_1[ship_x][ship_y] == "*":
+                player_shot = False
+            else:
+                print("Вы уже стреляли в это место, хотите повторить? :-) ")
 
         # Проверка игрока
-        for i in range(self.size):
-            for j in range(self.size):
-                if i == int(ship_y) and j == int(ship_x):
-                    if self.mas_b[i][j] == "X" or self.mas_b[i][j] == "+":
-                        self.mas_b_1[i][j] = "+"
-                        self.mas_b[i][j] = "+"
-                    else:
-
-                        self.mas_b_1[i][j] = "-"
-                        self.mas_b[i][j] = "-"
+            if self.mas_b[ship_x][ship_y] == "X" or self.mas_b[ship_x][ship_y] == "+":
+                self.mas_b_1[ship_x][ship_y] = "+"
+                self.mas_b[ship_x][ship_y] = "+"
+            else:
+                self.mas_b_1[ship_x][ship_y] = "-"
+                self.mas_b[ship_x][ship_y] = "-"
 
     def attack_bot(self):
         #   Бот атакует
@@ -54,18 +47,12 @@ class MyGame:
             ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
-            for i in range(self.size):
-                for j in range(self.size):
-                    if i == int(ship_y) and j == int(ship_x):
-                        if self.mas[i][j] == "*" or self.mas[i][j] == "X":
-                            bot_shot = False
-        for i in range(self.size):
-            for j in range(self.size):
-                if i == int(ship_y) and j == int(ship_x):
-                    if self.mas[i][j] == "X":
-                        self.mas[i][j] = "+"
-                    else:
-                        self.mas[i][j] = "-"
+            if self.mas[ship_y][ship_x] == "*" or self.mas[ship_y][ship_x] == "X":
+                bot_shot = False
+                if self.mas[ship_y][ship_x] == "X":
+                    self.mas[ship_y][ship_x] = "+"
+                else:
+                    self.mas[ship_y][ship_x] = "-"
 
     def good_field(self):
         print(sep="  ")
