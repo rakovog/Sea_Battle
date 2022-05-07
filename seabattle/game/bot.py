@@ -1,10 +1,8 @@
-from Sea_batle.make_field import Field
-from Sea_batle.player import Player
 import random
 
 
 class Bot:
-    def __init__(self, field, player):
+    def __init__(self, field):
         self.field = field
         self.mas_b = self.field.mas_b
         self.size = self.field.size

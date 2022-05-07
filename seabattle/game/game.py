@@ -1,17 +1,20 @@
-from Sea_batle.make_field import Field
-from Sea_batle.player import Player
-from Sea_batle.bot import Bot
+from seabattle.game.make_field import Field
+from seabattle.game.player import Player
+from seabattle.game.bot import Bot
 import random
+
+from seabattle.printwrite.ConsolePrinterWriter import ConsolePrinterWriter
 
 
 class MyGame:
-    def __init__(self, size):
+    def __init__(self, size=3, pw=ConsolePrinterWriter()):
+        self.pw = pw
         self.size = size
         self.field_player = Field(self.size)
         self.field_bot = Field(self.size)
 
-        self.player = Player(self.field_player)
-        self.bot = Bot(self.field_bot, self.player)
+        self.player = Player(self.field_player, self.pw)
+        self.bot = Bot(self.field_bot)
 
         self.mas = self.player.mas
         self.mas_b = self.bot.mas_b
@@ -22,15 +25,15 @@ class MyGame:
     def attack_player(self):
         player_shot = True
         while player_shot:
-            ship = input("Ведите место атаки| ")
+            ship = self.pw.input("Ведите место атаки| ")
             ship_y = int(ship[1::]) - 1
             ship_x = self.player.get_ship_f(ship[0])
             if self.mas_b_1[ship_x][ship_y] == "*":
                 player_shot = False
             else:
-                print("Вы уже стреляли в это место, хотите повторить? :-) ")
+                self.pw.print("Вы уже стреляли в это место, хотите повторить? :-) ")
 
-        # Проверка игрока
+            # Проверка игрока
             if self.mas_b[ship_x][ship_y] == "X" or self.mas_b[ship_x][ship_y] == "+":
                 self.mas_b_1[ship_x][ship_y] = "+"
                 self.mas_b[ship_x][ship_y] = "+"
@@ -55,11 +58,10 @@ class MyGame:
                     self.mas[ship_y][ship_x] = "-"
 
     def good_field(self):
-        print(sep="  ")
         for i in range(self.size):
-            print(self.list[i], "| ", *self.mas[i], end=" | ")
-            print(*self.mas_b_1[i], end="  ")
-            print("", sep="  ")
+            self.pw.print(self.list[i], "| ",
+                          ' '.join(list(map(str, self.mas[i]))), " | ",
+                          ' '.join(list(map(str, self.mas_b_1[i]))))
 
     def hwo_win(self):
         bot_win = True
@@ -75,15 +77,15 @@ class MyGame:
                     i_win = False
 
         if bot_win and i_win:
-            print("Ничья")
+            self.pw.print("Ничья")
             return False
 
         elif bot_win:
-            print("Ты победил!")
+            self.pw.print("Ты победил!")
             return False
 
         elif i_win:
-            print("Ты проиграл!")
+            self.pw.print("Ты проиграл!")
             return False
 
         else:
