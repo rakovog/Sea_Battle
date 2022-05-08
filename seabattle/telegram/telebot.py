@@ -6,13 +6,14 @@ from seabattle.printwrite.TelegramPrinterWriter import TelegramPrinterWriter
 
 TELEBOT_TOKEN_ENV = "TELEBOT_TOKEN"
 
+
 class TeleBot:
     def __init__(self):
         bot = telebot.TeleBot(os.environ[TELEBOT_TOKEN_ENV])
         self.chats = {}
         self.games = {}
 
-        @bot.message_handler(commands=['startGame'])
+        @bot.message_handler(commands=['start'])
         def start_game(m, res=False):
             self.chats[m.chat.id] = {"waiting": False, "last_message": None}
             pw = TelegramPrinterWriter(self, m.chat.id)

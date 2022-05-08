@@ -8,4 +8,3 @@ telebot.start()
 # size = int(input("Введите размер игровго поля от 3 до 10| "))
 # g = MyGame(size=size)
 # g.game()
-

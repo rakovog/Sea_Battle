@@ -35,19 +35,19 @@ class Player:
         for b in range(col_ship):
             self.pw.print('Ведите расположение ', col_ship, ' однопалубных кораблей')
             ship = self.pw.input()
-            ship_x = int(ship[1::]) - 1
-            ship_y = self.get_ship_f(ship[0])
+            ship_y = int(ship[1::]) - 1
+            ship_x = self.get_ship_f(ship[0])
             while True:
 
                 if self.mas[ship_x][ship_y] != "*":
                     self.pw.print("Поле занято, повторите ввод:")
                     self.pw.print('Ведите расположение ', col_ship, ' однопалубных кораблей')
                     ship = self.pw.input()
-                    ship_x = int(ship[1::]) - 1
-                    ship_y = self.get_ship_f(ship[0])
+                    ship_y = int(ship[1::]) - 1
+                    ship_x = self.get_ship_f(ship[0])
                 else:
                     break
-            self.mas[ship_y][ship_x] = "X"
+            self.mas[ship_x][ship_y] = "X"
             col_ship -= 1
             for i in range(self.size):
                 self.pw.print(self.list[i], "| ",
