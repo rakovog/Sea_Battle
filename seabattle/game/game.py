@@ -28,18 +28,18 @@ class MyGame:
             ship = self.pw.input("Ведите место атаки| ")
             ship_y = int(ship[1::]) - 1
             ship_x = self.player.get_ship_f(ship[0])
-            if self.mas_b_1[ship_x][ship_y] == "*":
+            if self.mas_b_1[ship_x][ship_y] == "⬜":
                 player_shot = False
             else:
                 self.pw.print("Вы уже стреляли в это место, хотите повторить? :-) ")
 
             # Проверка игрока
-            if self.mas_b[ship_x][ship_y] == "X" or self.mas_b[ship_x][ship_y] == "+":
-                self.mas_b_1[ship_x][ship_y] = "+"
-                self.mas_b[ship_x][ship_y] = "+"
+            if self.mas_b[ship_x][ship_y] == "⬛" or self.mas_b[ship_x][ship_y] == "✖":
+                self.mas_b_1[ship_x][ship_y] = "✖"
+                self.mas_b[ship_x][ship_y] = "✖"
             else:
-                self.mas_b_1[ship_x][ship_y] = "-"
-                self.mas_b[ship_x][ship_y] = "-"
+                self.mas_b_1[ship_x][ship_y] = "⚪"
+                self.mas_b[ship_x][ship_y] = "⚪"
 
     def attack_bot(self):
         #   Бот атакует
@@ -50,12 +50,12 @@ class MyGame:
             ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
-            if self.mas[ship_y][ship_x] == "*" or self.mas[ship_y][ship_x] == "X":
+            if self.mas[ship_y][ship_x] == "⬜" or self.mas[ship_y][ship_x] == "⬛":
                 bot_shot = False
-                if self.mas[ship_y][ship_x] == "X":
-                    self.mas[ship_y][ship_x] = "+"
+                if self.mas[ship_y][ship_x] == "✖":
+                    self.mas[ship_y][ship_x] = "✖"
                 else:
-                    self.mas[ship_y][ship_x] = "-"
+                    self.mas[ship_y][ship_x] = "⚫"
 
     def good_field(self):
         for i in range(self.size):
@@ -67,13 +67,13 @@ class MyGame:
         bot_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas_b[i][j] == "X":
+                if self.mas_b[i][j] == "⬛":
                     bot_win = False
 
         i_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas[i][j] == "X":
+                if self.mas[i][j] == "⬛":
                     i_win = False
 
         if bot_win and i_win:
@@ -92,6 +92,9 @@ class MyGame:
             return True
 
     def game(self):
+        self.pw.print("⬛ это корабль")
+        self.pw.print("⚫ это промах")
+        self.pw.print("✖ это попадение")
         p = self.player
         self.mas = p.mas
         p.xod_player()

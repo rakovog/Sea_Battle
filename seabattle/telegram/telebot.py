@@ -15,6 +15,7 @@ class TeleBot:
 
         @bot.message_handler(commands=['start'])
         def start_game(m, res=False):
+            chat_id = m.chat
             self.chats[m.chat.id] = {"waiting": False, "last_message": None}
             pw = TelegramPrinterWriter(self, m.chat.id)
             pw.print('Привет! Давай поиграем в Морской бой.')

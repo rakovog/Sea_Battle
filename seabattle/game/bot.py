@@ -14,9 +14,9 @@ class Bot:
             ship_x = random.randrange(0, self.size)
             ship_y = random.randrange(0, self.size)
             while True:
-                if self.mas_b[ship_x][ship_y] != "*":
+                if self.mas_b[ship_x][ship_y] != "⬜":
                     ship_x = random.randrange(0, self.size)
                     ship_y = random.randrange(0, self.size)
                 else:
                     break
-            self.mas_b[ship_x][ship_y] = "X"
+            self.mas_b[ship_x][ship_y] = "⬛"
