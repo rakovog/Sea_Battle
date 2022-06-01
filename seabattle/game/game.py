@@ -1,6 +1,7 @@
 from seabattle.game.make_field import Field
 from seabattle.game.player import Player
 from seabattle.game.bot import Bot
+from seabattle.game.konst import Konst
 import random
 
 from seabattle.printwrite.ConsolePrinterWriter import ConsolePrinterWriter
@@ -8,13 +9,17 @@ from seabattle.printwrite.ConsolePrinterWriter import ConsolePrinterWriter
 
 class MyGame:
     def __init__(self, size=3, pw=ConsolePrinterWriter()):
+        k = Konst
+        self.m = k.m
+        self.s = k.s
+        self.p = k.p
+        self.a = k.a
         self.pw = pw
         self.size = size
         self.field_player = Field(self.size)
         self.field_bot = Field(self.size)
-
         self.player = Player(self.field_player, self.pw)
-        self.bot = Bot(self.field_bot)
+        self.bot = Bot(self.field_bot, self.pw)
 
         self.mas = self.player.mas
         self.mas_b = self.bot.mas_b
@@ -28,18 +33,18 @@ class MyGame:
             ship = self.pw.input("Ведите место атаки| ")
             ship_y = int(ship[1::]) - 1
             ship_x = self.player.get_ship_f(ship[0])
-            if self.mas_b_1[ship_x][ship_y] == "⬜":
+            if self.mas_b_1[ship_x][ship_y] == self.p:
                 player_shot = False
             else:
                 self.pw.print("Вы уже стреляли в это место, хотите повторить? :-) ")
 
             # Проверка игрока
-            if self.mas_b[ship_x][ship_y] == "⬛" or self.mas_b[ship_x][ship_y] == "✖":
-                self.mas_b_1[ship_x][ship_y] = "✖"
-                self.mas_b[ship_x][ship_y] = "✖"
+            if self.mas_b[ship_x][ship_y] == self.s or self.mas_b[ship_x][ship_y] == self.a:
+                self.mas_b_1[ship_x][ship_y] = self.a
+                self.mas_b[ship_x][ship_y] = self.a
             else:
-                self.mas_b_1[ship_x][ship_y] = "⚪"
-                self.mas_b[ship_x][ship_y] = "⚪"
+                self.mas_b_1[ship_x][ship_y] = self.m
+                self.mas_b[ship_x][ship_y] = self.m
 
     def attack_bot(self):
         #   Бот атакует
@@ -50,12 +55,12 @@ class MyGame:
             ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
-            if self.mas[ship_y][ship_x] == "⬜" or self.mas[ship_y][ship_x] == "⬛":
+            if self.mas[ship_y][ship_x] == self.p or self.mas[ship_y][ship_x] == self.s:
                 bot_shot = False
-                if self.mas[ship_y][ship_x] == "✖":
-                    self.mas[ship_y][ship_x] = "✖"
+                if self.mas[ship_y][ship_x] == self.s:
+                    self.mas[ship_y][ship_x] = self.a
                 else:
-                    self.mas[ship_y][ship_x] = "⚫"
+                    self.mas[ship_y][ship_x] = self.m
 
     def good_field(self):
         for i in range(self.size):
@@ -67,13 +72,13 @@ class MyGame:
         bot_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas_b[i][j] == "⬛":
+                if self.mas_b[i][j] == self.s:
                     bot_win = False
 
         i_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas[i][j] == "⬛":
+                if self.mas[i][j] == self.s:
                     i_win = False
 
         if bot_win and i_win:
