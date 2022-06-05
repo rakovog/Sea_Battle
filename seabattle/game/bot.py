@@ -1,13 +1,10 @@
-from seabattle.game.player import Player
-from seabattle.game.konst import Konst
+from seabattle.game.check import check
+from seabattle.game.const import *
 import random
 
 
 class Bot:
     def __init__(self, field, printer):
-        k = Konst
-        self.s = k.s
-        self.p = k.p
         self.printer = printer
         self.field = field
         self.mas_b = self.field.mas_b
@@ -21,9 +18,10 @@ class Bot:
         col_ship = self.size * self.size // 3
         for b in range(col_ship):
             ship_x, ship_y = self.generate()
-            while Player(self.field, self.printer).check(self.size, self.mas_b, ship_x, ship_y):
-                if self.mas_b[ship_x][ship_y] != self.p:
+            # TODO
+            while check(self.size, self.mas_b, ship_x, ship_y):
+                if self.mas_b[ship_x][ship_y] != FIELD_EMPTY:
                     ship_x, ship_y = self.generate()
                 else:
                     ship_x, ship_y = self.generate()
-            self.mas_b[ship_x][ship_y] = self.s
+            self.mas_b[ship_x][ship_y] = FIELD_SHIP

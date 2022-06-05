@@ -1,19 +1,14 @@
+from seabattle.game.const import *
 from seabattle.game.make_field import Field
 from seabattle.game.player import Player
 from seabattle.game.bot import Bot
-from seabattle.game.konst import Konst
 import random
 
 from seabattle.printwrite.ConsolePrinterWriter import ConsolePrinterWriter
 
-
+# TODO replace consts
 class MyGame:
     def __init__(self, size=3, pw=ConsolePrinterWriter()):
-        k = Konst
-        self.m = k.m
-        self.s = k.s
-        self.p = k.p
-        self.a = k.a
         self.pw = pw
         self.size = size
         self.field_player = Field(self.size)
@@ -33,7 +28,7 @@ class MyGame:
             ship = self.pw.input("Ведите место атаки| ")
             ship_y = int(ship[1::]) - 1
             ship_x = self.player.get_ship_f(ship[0])
-            if self.mas_b_1[ship_x][ship_y] == self.p:
+            if self.mas_b_1[ship_x][ship_y] == FIELD_EMPTY:
                 player_shot = False
             else:
                 self.pw.print("Вы уже стреляли в это место, хотите повторить? :-) ")
@@ -55,7 +50,7 @@ class MyGame:
             ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
-            if self.mas[ship_y][ship_x] == self.p or self.mas[ship_y][ship_x] == self.s:
+            if self.mas[ship_y][ship_x] == FIELD_EMPTY or self.mas[ship_y][ship_x] == self.s:
                 bot_shot = False
                 if self.mas[ship_y][ship_x] == self.s:
                     self.mas[ship_y][ship_x] = self.a
@@ -97,9 +92,9 @@ class MyGame:
             return True
 
     def game(self):
-        self.pw.print("⬛ это корабль")
-        self.pw.print("⚫ это промах")
-        self.pw.print("✖ это попадение")
+        self.pw.print("%s это корабль" % FIELD_SHIP)
+        self.pw.print("%s это промах" % FIELD_SHIP_MISS)
+        self.pw.print("%s это попадение" % FIELD_SHIP_HIT)
         p = self.player
         self.mas = p.mas
         p.xod_player()

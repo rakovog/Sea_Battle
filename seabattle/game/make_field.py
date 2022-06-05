@@ -1,4 +1,4 @@
-from seabattle.game.konst import Konst
+from seabattle.game.const import Konst
 
 
 class Field:
