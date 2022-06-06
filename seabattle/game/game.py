@@ -6,6 +6,7 @@ import random
 
 from seabattle.printwrite.ConsolePrinterWriter import ConsolePrinterWriter
 
+
 # TODO replace consts
 class MyGame:
     def __init__(self, size=3, pw=ConsolePrinterWriter()):
@@ -34,12 +35,12 @@ class MyGame:
                 self.pw.print("Вы уже стреляли в это место, хотите повторить? :-) ")
 
             # Проверка игрока
-            if self.mas_b[ship_x][ship_y] == self.s or self.mas_b[ship_x][ship_y] == self.a:
-                self.mas_b_1[ship_x][ship_y] = self.a
-                self.mas_b[ship_x][ship_y] = self.a
+            if self.mas_b[ship_x][ship_y] == FIELD_SHIP or self.mas_b[ship_x][ship_y] == FIELD_SHIP_HIT:
+                self.mas_b_1[ship_x][ship_y] = FIELD_SHIP_HIT
+                self.mas_b[ship_x][ship_y] = FIELD_SHIP_HIT
             else:
-                self.mas_b_1[ship_x][ship_y] = self.m
-                self.mas_b[ship_x][ship_y] = self.m
+                self.mas_b_1[ship_x][ship_y] = FIELD_SHIP_MISS
+                self.mas_b[ship_x][ship_y] = FIELD_SHIP_MISS
 
     def attack_bot(self):
         #   Бот атакует
@@ -50,12 +51,12 @@ class MyGame:
             ship_y = self.player.get_ship_f(ship[0])
 
             # проверка, свободно ли поле:
-            if self.mas[ship_y][ship_x] == FIELD_EMPTY or self.mas[ship_y][ship_x] == self.s:
+            if self.mas[ship_y][ship_x] == FIELD_EMPTY or self.mas[ship_y][ship_x] == FIELD_SHIP:
                 bot_shot = False
-                if self.mas[ship_y][ship_x] == self.s:
-                    self.mas[ship_y][ship_x] = self.a
+                if self.mas[ship_y][ship_x] == FIELD_SHIP:
+                    self.mas[ship_y][ship_x] = FIELD_SHIP_HIT
                 else:
-                    self.mas[ship_y][ship_x] = self.m
+                    self.mas[ship_y][ship_x] = FIELD_SHIP_MISS
 
     def good_field(self):
         for i in range(self.size):
@@ -67,13 +68,13 @@ class MyGame:
         bot_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas_b[i][j] == self.s:
+                if self.mas_b[i][j] == FIELD_SHIP:
                     bot_win = False
 
         i_win = True
         for i in range(self.size):
             for j in range(self.size):
-                if self.mas[i][j] == self.s:
+                if self.mas[i][j] == FIELD_SHIP:
                     i_win = False
 
         if bot_win and i_win:
@@ -92,9 +93,9 @@ class MyGame:
             return True
 
     def game(self):
-        self.pw.print("%s это корабль" % FIELD_SHIP)
-        self.pw.print("%s это промах" % FIELD_SHIP_MISS)
-        self.pw.print("%s это попадение" % FIELD_SHIP_HIT)
+        self.pw.print(FIELD_SHIP, "это корабль")
+        self.pw.print(FIELD_SHIP_MISS, "это промах")
+        self.pw.print(FIELD_SHIP_HIT, "это попадение")
         p = self.player
         self.mas = p.mas
         p.xod_player()

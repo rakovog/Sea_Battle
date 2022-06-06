@@ -1,19 +1,17 @@
-from seabattle.game.const import Konst
+from seabattle.game.const import *
 
 
 class Field:
     def __init__(self, size):
-        k = Konst
-        self.p = k.p
         self.size = size
-        self.mas = [self.p] * self.size
+        self.mas = [FIELD_EMPTY] * self.size
         for i in range(self.size):
-            self.mas[i] = [self.p] * self.size
-        self.mas_b_1 = [self.p] * self.size
+            self.mas[i] = [FIELD_EMPTY] * self.size
+        self.mas_b_1 = [FIELD_EMPTY] * self.size
         for i in range(self.size):
-            self.mas_b_1[i] = [self.p] * self.size
+            self.mas_b_1[i] = [FIELD_EMPTY] * self.size
         list_1 = ["a", "b", "c", "d", "e", "f", "g", "i", "j", "k"]
         self.list = list_1[:self.size]
-        self.mas_b = [self.p] * self.size
+        self.mas_b = [FIELD_EMPTY] * self.size
         for i in range(self.size):
-            self.mas_b[i] = [self.p] * self.size
+            self.mas_b[i] = [FIELD_EMPTY] * self.size
