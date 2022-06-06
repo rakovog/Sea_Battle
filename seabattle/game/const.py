@@ -1,0 +1,4 @@
+FIELD_EMPTY = "⬜"
+FIELD_SHIP = "⬛"
+FIELD_SHIP_HIT = "✖"
+FIELD_SHIP_MISS = "⚫"
