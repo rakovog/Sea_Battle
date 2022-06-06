@@ -1,5 +1,5 @@
-from check import check
 from seabattle.game.const import *
+from seabattle.game.check import check
 
 
 class Player:
